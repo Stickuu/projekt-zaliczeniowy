@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignupFragment"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/signupFirstName"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="first name" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/signupLastName"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="last name"
+        android:layout_below="@id/signupFirstName" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/signupUsername"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="username"
+        android:layout_below="@id/signupLastName" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/signupPassword"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="password"
+        android:layout_below="@id/signupUsername"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/signupCheckbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Company ?"
+        android:layout_below="@id/signupPassword"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/signupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signupCheckbox"
+        android:text="Signup" />
+
+
+</RelativeLayout>
