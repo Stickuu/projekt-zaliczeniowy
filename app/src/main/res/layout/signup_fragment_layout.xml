@@ -12,7 +12,8 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="first name" />
+        android:hint="first name"
+        android:inputType="text" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/signupLastName"
@@ -20,7 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="last name"
-        android:layout_below="@id/signupFirstName" />
+        android:layout_below="@id/signupFirstName"
+        android:inputType="text" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/signupEmail"
@@ -28,7 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="email"
-        android:layout_below="@id/signupLastName" />
+        android:layout_below="@id/signupLastName"
+        android:inputType="textEmailAddress" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/signupPhone"
@@ -36,7 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="phone number"
-        android:layout_below="@id/signupEmail" />
+        android:layout_below="@id/signupEmail"
+        android:inputType="phone" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/signupPassword"
@@ -44,7 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="password"
-        android:layout_below="@id/signupPhone"/>
+        android:layout_below="@id/signupPhone"
+        android:inputType="textPassword" />
 
 <!--    <com.google.android.material.checkbox.MaterialCheckBox-->
 <!--        android:id="@+id/signupCheckbox"-->

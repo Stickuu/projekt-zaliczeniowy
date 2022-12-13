@@ -1,4 +1,4 @@
-package com.example.projekt_zaliczeniowy.database;
+package com.example.projekt_zaliczeniowy.constants;
 
 import android.provider.BaseColumns;
 

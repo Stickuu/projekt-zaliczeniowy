@@ -1,14 +1,25 @@
 package com.example.projekt_zaliczeniowy.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
 import com.example.projekt_zaliczeniowy.R;
+import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
+import com.example.projekt_zaliczeniowy.models.UserModel;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +27,11 @@ import com.example.projekt_zaliczeniowy.R;
  * create an instance of this fragment.
  */
 public class LoginFragment extends Fragment {
+
+    TextInputEditText emailInput;
+    TextInputEditText passwordInput;
+    MaterialButton button;
+    SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +78,41 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.login_fragment_layout, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        emailInput = getView().findViewById(R.id.loginEmail);
+        passwordInput = getView().findViewById(R.id.loginPassword);
+        button = getView().findViewById(R.id.loginButton);
+        sharedPreferences = getActivity().getSharedPreferences(SharedPreferencesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
+
+        button.setOnClickListener(v -> {
+
+            if(emailInput.length() != 0 && passwordInput.length() != 0) {
+                DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+                UserModel userModel = databaseHelper.getUserByEmailAndPassword(
+                        emailInput.getText().toString(),
+                        passwordInput.getText().toString()
+                );
+
+                if(userModel != null) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt(SharedPreferencesConstants.USER_ID_KEY, userModel.getId());
+                    editor.apply();
+
+                    Toast.makeText(getContext(), "Zalogowano", Toast.LENGTH_SHORT).show();
+                    Log.d("USER", "currentUser: " + userModel);
+                    return;
+                }
+
+                Toast.makeText(getContext(), "blad", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Toast.makeText(getContext(), "Wypelnij wszystkie pola", Toast.LENGTH_SHORT).show();
+        });
     }
 }

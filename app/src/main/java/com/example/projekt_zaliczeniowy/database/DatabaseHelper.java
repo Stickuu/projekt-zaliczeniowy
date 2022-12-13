@@ -1,13 +1,12 @@
 package com.example.projekt_zaliczeniowy.database;
 
-import static com.example.projekt_zaliczeniowy.database.DatabaseConstants.*;
+import static com.example.projekt_zaliczeniowy.constants.DatabaseConstants.*;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -17,13 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-
-    private static final String USER_TABLE_NAME = "users";
-    private static final String USER_TABLE_FIRSTNAME_COLUMN = "firstName";
-    private static final String USER_TABLE_LASTNAME_COLUMN = "lastName";
-    private static final String USER_TABLE_EMAIL_COLUMN = "email";
-    private static final String USER_TABLE_PASSWORD_COLUMN = "password";
-    private static final String USER_TABLE_PHONENUMBER_COLUMN = "phoneNumber";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, "shop.db", null, 1);
@@ -49,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(Users.PASSWORD_COLUMN, userModel.getPassword());
         cv.put(Users.PHONE_NUMBER_COLUMN, userModel.getPhoneNumber());
 
-        long insert = db.insert(USER_TABLE_NAME, null, cv);
+        long insert = db.insert(Users.TABLE_NAME, null, cv);
 
         db.close();
 
@@ -72,6 +64,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public UserModel getUserByEmailAndPassword(UserModel userModel) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + Users.TABLE_NAME + " WHERE " + Users.EMAIL_COLUMN + " = '" + userModel.getEmail() + "' AND " + Users.PASSWORD_COLUMN + " = '" + userModel.getPassword() + "'" ;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) return new UserModel(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(5)
+        );
+
+        return null;
+    }
+
+    public  UserModel getUserByEmailAndPassword(String email, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + Users.TABLE_NAME + " WHERE " + Users.EMAIL_COLUMN + " = '" + email + "' AND " + Users.PASSWORD_COLUMN + " = '" + password + "'" ;
 
         Cursor cursor = db.rawQuery(query, null);
 

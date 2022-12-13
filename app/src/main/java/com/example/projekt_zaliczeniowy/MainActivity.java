@@ -3,15 +3,16 @@ package com.example.projekt_zaliczeniowy;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
+import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
 import com.example.projekt_zaliczeniowy.fragments.AccountFragment;
 import com.example.projekt_zaliczeniowy.fragments.HomeFragment;
 import com.example.projekt_zaliczeniowy.fragments.ShoppingCartFragment;
-import com.example.projekt_zaliczeniowy.models.UserModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     ShoppingCartFragment shoppingCartFragment = new ShoppingCartFragment();
     AccountFragment accountFragment = new AccountFragment();
     BottomNavigationView bottomNavigationView;
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);
+
+        sharedPreferences = getSharedPreferences(SharedPreferencesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
+
+        int id = sharedPreferences.getInt(SharedPreferencesConstants.USER_ID_KEY, -1);
+
+        Log.d("USER", "currentUser: " + String.valueOf(id));
     }
 
     @Override

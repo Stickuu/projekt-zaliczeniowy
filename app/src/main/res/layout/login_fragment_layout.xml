@@ -12,7 +12,8 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="email" />
+        android:hint="email"
+        android:inputType="textEmailAddress" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/loginPassword"
@@ -20,10 +21,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="password"
-        android:layout_below="@id/loginEmail"/>
+        android:layout_below="@id/loginEmail"
+        android:inputType="textPassword" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/LoginButton"
+        android:id="@+id/loginButton"
         android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
