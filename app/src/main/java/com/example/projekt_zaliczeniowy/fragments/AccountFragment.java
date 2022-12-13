@@ -8,13 +8,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.projekt_zaliczeniowy.MainActivity;
 import com.example.projekt_zaliczeniowy.R;
 import com.example.projekt_zaliczeniowy.adapters.FragmentAdapter;
+import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
+import com.example.projekt_zaliczeniowy.models.UserModel;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,11 +88,11 @@ public class AccountFragment extends Fragment {
         viewPager2 = getView().findViewById(R.id.accountViewPager);
         tabLayout = getView().findViewById(R.id.accountTabLayout);
 
-        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentManager fragmentManager = getChildFragmentManager();
         fragmentAdapter = new FragmentAdapter(fragmentManager, getLifecycle());
         viewPager2.setAdapter(fragmentAdapter);
         tabLayout.addTab(tabLayout.newTab().setText("Login"));
-        tabLayout.addTab(tabLayout.newTab().setText("Signup"));
+        tabLayout.addTab(tabLayout.newTab().setText("Register"));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

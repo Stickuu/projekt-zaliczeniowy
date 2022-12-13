@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.projekt_zaliczeniowy.LoginFragment;
-import com.example.projekt_zaliczeniowy.SignupFragment;
+import com.example.projekt_zaliczeniowy.fragments.LoginFragment;
+import com.example.projekt_zaliczeniowy.fragments.SignupFragment;
 
 public class FragmentAdapter extends FragmentStateAdapter {
 

@@ -2,13 +2,21 @@ package com.example.projekt_zaliczeniowy.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.projekt_zaliczeniowy.R;
+import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
+import com.example.projekt_zaliczeniowy.models.UserModel;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,5 +70,41 @@ public class ShoppingCartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.shopping_cart_fragment_layout, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // database
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+//        UserModel userModel = new UserModel(
+//                "name",
+//                "lastname",
+//                "test3@google.com",
+//                "12345",
+//                "123456789"
+//        );
+//
+//        boolean result = databaseHelper.addOne(userModel);
+
+        List<UserModel> allUsers = databaseHelper.getAllUsers();
+        Log.d("DATABASE", allUsers.toString());
+
+//        if(result) {
+//            Toast.makeText(getActivity(), "User created", Toast.LENGTH_SHORT).show();
+//        }
+//        else Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+
+        UserModel userModel = databaseHelper.getUserByEmailAndPassword(new UserModel(
+                "name",
+                "lastname",
+                "test22@google.com",
+                "1234",
+                "123456789"
+        ));
+
+        if(userModel != null) Log.d("DATABASE", userModel.toString());
+        else Log.d("DATABASE", "USER NOT FOUND");
     }
 }

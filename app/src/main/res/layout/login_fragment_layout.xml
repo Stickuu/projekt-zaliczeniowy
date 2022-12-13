@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment"
+    tools:context=".fragments.LoginFragment"
     android:paddingLeft="10dp"
     android:paddingRight="10dp" >
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/loginUsername"
+        android:id="@+id/loginEmail"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="username" />
+        android:hint="email" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/loginPassword"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="password"
-        android:layout_below="@id/loginUsername"/>
+        android:layout_below="@id/loginEmail"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/LoginButton"

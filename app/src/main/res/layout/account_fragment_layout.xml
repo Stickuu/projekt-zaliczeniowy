@@ -10,14 +10,13 @@
         android:id="@+id/accountTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#673AB7"
-        app:tabTextColor="@color/purple_200"
-        app:tabSelectedTextColor="@color/white"/>
+        />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/accountViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/accountTabLayout" />
+        android:layout_below="@id/accountTabLayout"
+        android:saveEnabled="false" />
 
 </RelativeLayout>
