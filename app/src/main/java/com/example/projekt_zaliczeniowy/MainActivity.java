@@ -2,6 +2,7 @@ package com.example.projekt_zaliczeniowy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,9 +11,12 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
+import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
 import com.example.projekt_zaliczeniowy.fragments.AccountFragment;
 import com.example.projekt_zaliczeniowy.fragments.HomeFragment;
+import com.example.projekt_zaliczeniowy.fragments.LogedinAccountFragment;
 import com.example.projekt_zaliczeniowy.fragments.ShoppingCartFragment;
+import com.example.projekt_zaliczeniowy.models.UserModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -20,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     HomeFragment homeFragment = new HomeFragment();
     ShoppingCartFragment shoppingCartFragment = new ShoppingCartFragment();
     AccountFragment accountFragment = new AccountFragment();
+    LogedinAccountFragment logedinAccountFragment = new LogedinAccountFragment();
     BottomNavigationView bottomNavigationView;
 
     SharedPreferences sharedPreferences;
@@ -55,10 +60,26 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, shoppingCartFragment).commit();
                 return true;
             case R.id.account:
-                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, accountFragment).commit();
+                getCorrectAccountFragment();
                 return true;
         }
 
         return false;
+    }
+
+    public void getCorrectAccountFragment() {
+        Fragment correctAccountFragment = (getCurrentUserIdFromSession() == -1) ? accountFragment : logedinAccountFragment;
+        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, correctAccountFragment).commit();
+    }
+
+    public int getCurrentUserIdFromSession() {
+        return sharedPreferences.getInt(SharedPreferencesConstants.USER_ID_KEY, -1);
+    }
+
+    public UserModel getCurrentUser(int id) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        UserModel currentUser = databaseHelper.getUserByID(id);
+
+        return currentUser;
     }
 }

@@ -97,6 +97,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    public UserModel getUserByID(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + Users.TABLE_NAME + " WHERE " + Users._ID + " = " + id;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) return new UserModel(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(5)
+        );
+
+        return null;
+    }
+
     public List<UserModel> getAllUsers() {
         List<UserModel> users = new ArrayList<>();
 

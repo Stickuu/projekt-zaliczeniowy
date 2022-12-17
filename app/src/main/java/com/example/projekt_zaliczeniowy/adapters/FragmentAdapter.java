@@ -9,26 +9,25 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.projekt_zaliczeniowy.fragments.LoginFragment;
 import com.example.projekt_zaliczeniowy.fragments.SignupFragment;
 
+import java.util.List;
+
 public class FragmentAdapter extends FragmentStateAdapter {
 
-    public FragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    List<Fragment> fragmentList;
+
+    public FragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, List<Fragment> fragmentList) {
         super(fragmentManager, lifecycle);
+        this.fragmentList = fragmentList;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-
-        switch (position) {
-            case 1:
-                return new SignupFragment();
-        }
-
-        return new LoginFragment();
+        return fragmentList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return fragmentList.size();
     }
 }

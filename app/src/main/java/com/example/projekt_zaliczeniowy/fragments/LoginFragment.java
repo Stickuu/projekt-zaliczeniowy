@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.projekt_zaliczeniowy.MainActivity;
 import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
 import com.example.projekt_zaliczeniowy.R;
 import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
@@ -104,6 +105,9 @@ public class LoginFragment extends Fragment {
                     editor.apply();
 
                     Toast.makeText(getContext(), "Zalogowano", Toast.LENGTH_SHORT).show();
+
+                    ((MainActivity) getActivity()).getCorrectAccountFragment();
+
                     Log.d("USER", "currentUser: " + userModel);
                     return;
                 }
