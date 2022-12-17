@@ -7,11 +7,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projekt_zaliczeniowy.R;
@@ -104,7 +102,7 @@ public class SignupFragment extends Fragment {
                     passwordInput.length() != 0
             ) {
                 DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
-                boolean result = databaseHelper.addOne(new UserModel(
+                boolean result = databaseHelper.addUser(new UserModel(
                         firstNameInput.getText().toString(),
                         lastNameInput.getText().toString(),
                         emailInput.getText().toString(),

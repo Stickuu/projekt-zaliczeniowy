@@ -15,6 +15,14 @@ public final class DatabaseConstants {
         public static final String PHONE_NUMBER_COLUMN = "phoneNumber";
     }
 
+    public static class Products implements BaseColumns {
+        public static final String TABLE_NAME = "products";
+        public static final String PRODUCT_NAME_COLUMN = "productName";
+        public static final String PRODUCT_DESCRIPTION_COLUMN = "productDescription";
+        public static final String PRICE_COLUMN = "price";
+        public static final String IMAGE_NAME_COLUMN = "imageName";
+    }
+
     public static final String CREATE_USERS_TABLE = "CREATE TABLE " + Users.TABLE_NAME +
             " (" + Users._ID + " INTEGER PRIMARY KEY, " +
             Users.FIRSTNAME_COLUMN + " TEXT, " +
@@ -22,6 +30,13 @@ public final class DatabaseConstants {
             Users.EMAIL_COLUMN + " TEXT, " +
             Users.PASSWORD_COLUMN + " TEXT, " +
             Users.PHONE_NUMBER_COLUMN + " TEXT)";
+
+    public static final String CREATE_PRODUCTS_TABLE = "CREATE TABLE " + Products.TABLE_NAME +
+            " ( " + Products._ID + " INTEGER PRIMARY KEY, " +
+            Products.PRODUCT_NAME_COLUMN + " TEXT, " +
+            Products.PRODUCT_DESCRIPTION_COLUMN + " TEXT, " +
+            Products.PRICE_COLUMN + " INTEGER, " +
+            Products.IMAGE_NAME_COLUMN + " TEXT)";
 
     public static final String DELETE_TABLE = "DELETE TABLE IF EXISTS";
 }
