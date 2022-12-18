@@ -38,5 +38,5 @@ public final class DatabaseConstants {
             Products.PRICE_COLUMN + " INTEGER, " +
             Products.IMAGE_NAME_COLUMN + " TEXT)";
 
-    public static final String DELETE_TABLE = "DELETE TABLE IF EXISTS";
+    public static final String DELETE_TABLE = "DELETE TABLE IF EXISTS ";
 }

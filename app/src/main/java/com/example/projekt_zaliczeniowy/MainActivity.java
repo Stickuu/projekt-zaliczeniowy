@@ -16,8 +16,11 @@ import com.example.projekt_zaliczeniowy.fragments.AccountFragment;
 import com.example.projekt_zaliczeniowy.fragments.HomeFragment;
 import com.example.projekt_zaliczeniowy.fragments.LogedinAccountFragment;
 import com.example.projekt_zaliczeniowy.fragments.ShoppingCartFragment;
+import com.example.projekt_zaliczeniowy.models.ProductModel;
 import com.example.projekt_zaliczeniowy.models.UserModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         int id = sharedPreferences.getInt(SharedPreferencesConstants.USER_ID_KEY, -1);
 
         Log.d("USER", "currentUser: " + String.valueOf(id));
+        insertProducts();
     }
 
     @Override
@@ -81,5 +85,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         UserModel currentUser = databaseHelper.getUserByID(id);
 
         return currentUser;
+    }
+
+    private void insertProducts() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+
+        List<ProductModel> products = databaseHelper.getAllProducts();
+
+        if(products.size() == 0) {
+            Log.d("DATABASE", "insertnig products");
+            for (int i = 1; i < 11; i++) {
+                databaseHelper.addProduct(new ProductModel(
+                        "Product Name " + String.valueOf(i),
+                        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use",
+                        10 * i,
+                        "image"
+                ));
+            }
+        }
     }
 }

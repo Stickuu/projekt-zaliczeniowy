@@ -29,8 +29,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL(DELETE_TABLE + Users.TABLE_NAME);
+        db.execSQL(DELETE_TABLE + Products.TABLE_NAME);
     }
 
 //    users table
@@ -158,7 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(Products.PRICE_COLUMN, productModel.getPrice());
         cv.put(Products.IMAGE_NAME_COLUMN, productModel.getImageName());
 
-        long insert = db.insert(Users.TABLE_NAME, null, cv);
+        long insert = db.insert(Products.TABLE_NAME, null, cv);
 
         db.close();
 

@@ -2,13 +2,21 @@ package com.example.projekt_zaliczeniowy.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.projekt_zaliczeniowy.R;
+import com.example.projekt_zaliczeniowy.adapters.ProductsRecyclerViewAdapter;
+import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
+import com.example.projekt_zaliczeniowy.models.ProductModel;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +24,9 @@ import com.example.projekt_zaliczeniowy.R;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    RecyclerView productsRecyclerView;
+    ProductsRecyclerViewAdapter productsRecyclerViewAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +73,21 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.home_fragment_layout, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        productsRecyclerView = getView().findViewById(R.id.productsRecyclerView);
+
+        productsRecyclerViewAdapter = new ProductsRecyclerViewAdapter(getProducts());
+        productsRecyclerView.setAdapter(productsRecyclerViewAdapter);
+    }
+
+    private List<ProductModel> getProducts() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+
+        return databaseHelper.getAllProducts();
     }
 }
