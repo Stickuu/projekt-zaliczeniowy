@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     AccountFragment accountFragment = new AccountFragment();
     LogedinAccountFragment logedinAccountFragment = new LogedinAccountFragment();
     BottomNavigationView bottomNavigationView;
-
     SharedPreferences sharedPreferences;
 
     @Override
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         if(products.size() == 0) {
             Log.d("DATABASE", "insertnig products");
-            for (int i = 1; i < 11; i++) {
+            for (int i = 1; i < 21; i++) {
                 databaseHelper.addProduct(new ProductModel(
                         "Product Name " + String.valueOf(i),
                         "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use",

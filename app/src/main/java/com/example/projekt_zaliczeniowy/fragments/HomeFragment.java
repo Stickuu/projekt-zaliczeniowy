@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
 
         productsRecyclerView = getView().findViewById(R.id.productsRecyclerView);
 
-        productsRecyclerViewAdapter = new ProductsRecyclerViewAdapter(getProducts());
+        productsRecyclerViewAdapter = new ProductsRecyclerViewAdapter(getProducts(), getContext());
         productsRecyclerView.setAdapter(productsRecyclerViewAdapter);
     }
 

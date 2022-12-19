@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.ProductFragment">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/productImageSingleProduct"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@drawable/ic_launcher_background"/>
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="#94454343"
+        android:src="@drawable/back_icon"
+        android:background="@drawable/circle"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/productNameSingleProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Product Name"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:layout_below="@id/productImageSingleProduct"
+        android:paddingHorizontal="25dp"
+        android:layout_marginTop="10dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/productDescriptionSingleProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="25dp"
+        android:layout_marginTop="10dp"
+        android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use"
+        android:layout_below="@id/productNameSingleProduct" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/priceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price:"
+        android:textStyle="bold"
+        android:layout_below="@id/productDescriptionSingleProduct"
+        android:paddingLeft="25dp"
+        android:layout_marginTop="40dp"
+        android:textSize="20sp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/productPriceSingleProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="500 $"
+        android:textStyle="bold"
+        android:layout_below="@id/productDescriptionSingleProduct"
+        android:layout_alignParentRight="true"
+        android:paddingRight="25dp"
+        android:layout_marginTop="40dp"
+        android:textSize="20sp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addProductToCartButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add to Cart"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="30dp" />
+
+</RelativeLayout>
