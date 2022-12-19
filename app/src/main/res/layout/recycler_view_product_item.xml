@@ -21,7 +21,6 @@
 
 
         <com.google.android.material.textview.MaterialTextView
-            android:layout_marginTop="-9dp"
             android:id="@+id/productName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,10 +1,14 @@
 package com.example.projekt_zaliczeniowy.fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +17,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.projekt_zaliczeniowy.R;
+import com.example.projekt_zaliczeniowy.adapters.CartRecyclerViewAdapter;
+import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
 import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
+import com.example.projekt_zaliczeniowy.models.ProductModel;
 import com.example.projekt_zaliczeniowy.models.UserModel;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +34,10 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class ShoppingCartFragment extends Fragment {
+
+    RecyclerView cartRecyclerView;
+    CartRecyclerViewAdapter cartRecyclerViewAdapter;
+    SharedPreferences sharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,36 +89,24 @@ public class ShoppingCartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sharedPreferences = getActivity().getSharedPreferences(SharedPreferencesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
 
-        // database
+        cartRecyclerView = view.findViewById(R.id.cartRecyclerView);
+        cartRecyclerViewAdapter = new CartRecyclerViewAdapter(generateProductsListFromSharedPreferance());
+        cartRecyclerView.setAdapter(cartRecyclerViewAdapter);
+    }
+
+    private List<ProductModel> generateProductsListFromSharedPreferance() {
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
-//        UserModel userModel = new UserModel(
-//                "name",
-//                "lastname",
-//                "test3@google.com",
-//                "12345",
-//                "123456789"
-//        );
-//
-//        boolean result = databaseHelper.addOne(userModel);
+        Set<String> productsIdSet = new HashSet<>(sharedPreferences.getStringSet(SharedPreferencesConstants.CART_KEY, new HashSet<String>()));
+        List<ProductModel> products = new ArrayList<>();
 
-        List<UserModel> allUsers = databaseHelper.getAllUsers();
-        Log.d("DATABASE", allUsers.toString());
+        for (String id : productsIdSet) {
+            products.add(
+                    databaseHelper.getProductByID(Integer.valueOf(id))
+            );
+        }
 
-//        if(result) {
-//            Toast.makeText(getActivity(), "User created", Toast.LENGTH_SHORT).show();
-//        }
-//        else Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-
-        UserModel userModel = databaseHelper.getUserByEmailAndPassword(new UserModel(
-                "name",
-                "lastname",
-                "test22@google.com",
-                "1234",
-                "123456789"
-        ));
-
-        if(userModel != null) Log.d("DATABASE", userModel.toString());
-        else Log.d("DATABASE", "USER NOT FOUND");
+        return products;
     }
 }

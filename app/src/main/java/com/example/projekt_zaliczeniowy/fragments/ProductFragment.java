@@ -1,27 +1,31 @@
 package com.example.projekt_zaliczeniowy.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.projekt_zaliczeniowy.MainActivity;
 import com.example.projekt_zaliczeniowy.R;
+import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
 import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
 import com.example.projekt_zaliczeniowy.models.ProductModel;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,11 +34,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  */
 public class ProductFragment extends Fragment {
 
-    TextView productName;
-    TextView productDescription;
-    TextView productPrice;
-    ImageButton imageButton;
-//    BottomNavigationView bottomNavigationView;
+    MaterialTextView productName;
+    MaterialTextView productDescription;
+    MaterialTextView productPrice;
+    ImageButton backArrowButton;
+    MaterialButton addProductToCartButton;
+    SharedPreferences sharedPreferences;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -92,37 +97,50 @@ public class ProductFragment extends Fragment {
         productName = view.findViewById(R.id.productNameSingleProduct);
         productDescription = view.findViewById(R.id.productDescriptionSingleProduct);
         productPrice = view.findViewById(R.id.productPriceSingleProduct);
-        imageButton = view.findViewById(R.id.backButton);
+        backArrowButton = view.findViewById(R.id.backButton);
+        addProductToCartButton = view.findViewById(R.id.addProductToCartButton);
+        sharedPreferences = getActivity().getSharedPreferences(SharedPreferencesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
 
+        // get product id
         int productID = getArguments().getInt("productID");
-        Toast.makeText(getContext(), "productID: " + String.valueOf(productID), Toast.LENGTH_SHORT).show();
 
         ProductModel productModel = getProduct(productID);
 
+        // set informations about product to text view
         productName.setText(productModel.getName());
         productDescription.setText(productModel.getDescription());
         productPrice.setText(String.valueOf(productModel.getPrice()) + " $");
 
-        imageButton.setOnClickListener(v -> {
+        // back arrow button listener
+        backArrowButton.setOnClickListener(v -> {
             FragmentManager fragmentManager = getParentFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.flFragment, new HomeFragment())
                     .commit();
         });
 
-//        if(view instanceof ViewGroup) {
-//            ViewGroup viewGroup = (ViewGroup) view;
-//            viewGroup.setFitsSystemWindows(true);
-//        }
-//
-//        if (getActivity() != null) {
-//            getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-//        }
+        // add product to cart
+        addProductToCartButton.setOnClickListener(v -> {
+            addProductToCart(productID);
+            Toast.makeText(getContext(), "Dodano " + productModel.getName() + " do koszyka", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private ProductModel getProduct(int id) {
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
 
         return databaseHelper.getProductByID(id);
+    }
+
+    private void addProductToCart(int id) {
+        Set<String> productsIdSet = new HashSet<>(sharedPreferences.getStringSet(SharedPreferencesConstants.CART_KEY, new HashSet<String>()));
+        Log.d("CART", "set: " + productsIdSet.toString());
+        productsIdSet.add(String.valueOf(id));
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putStringSet(SharedPreferencesConstants.CART_KEY, productsIdSet);
+        editor.apply();
+        Log.d("CART", "set2: " + productsIdSet.toString());
     }
 }

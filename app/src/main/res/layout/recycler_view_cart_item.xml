@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp">
+
+    <ImageView
+        android:id="@+id/productImageCart"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_launcher_background" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_toRightOf="@id/productImageCart"
+        android:paddingLeft="20dp">
+
+
+            <RelativeLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" >
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/productNameCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:text="Product Name"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"/>
+
+                <ImageButton
+                    android:id="@+id/deleteButtonCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/trash_icon"
+                    android:backgroundTint="#00000000"
+                    android:layout_alignParentRight="true"
+                    android:foregroundGravity="right"
+                    android:layout_marginRight="-15dp"/>
+            </RelativeLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/productPriceCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:text="500 $"
+            android:textStyle="bold"
+            android:textSize="18dp"/>
+
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
