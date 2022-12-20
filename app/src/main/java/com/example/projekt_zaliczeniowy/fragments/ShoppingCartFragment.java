@@ -1,7 +1,6 @@
 package com.example.projekt_zaliczeniowy.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -10,23 +9,22 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.projekt_zaliczeniowy.R;
 import com.example.projekt_zaliczeniowy.adapters.CartRecyclerViewAdapter;
 import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
 import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
 import com.example.projekt_zaliczeniowy.models.ProductModel;
-import com.example.projekt_zaliczeniowy.models.UserModel;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +36,8 @@ public class ShoppingCartFragment extends Fragment {
     RecyclerView cartRecyclerView;
     CartRecyclerViewAdapter cartRecyclerViewAdapter;
     SharedPreferences sharedPreferences;
+
+    MaterialTextView totalPrice;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -90,15 +90,17 @@ public class ShoppingCartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         sharedPreferences = getActivity().getSharedPreferences(SharedPreferencesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
+        totalPrice = view.findViewById(R.id.totalPriceCart);
 
         cartRecyclerView = view.findViewById(R.id.cartRecyclerView);
-        cartRecyclerViewAdapter = new CartRecyclerViewAdapter(generateProductsListFromSharedPreferance());
+        cartRecyclerViewAdapter = new CartRecyclerViewAdapter(generateProductsListFromSharedPreferance(), totalPrice, getActivity());
         cartRecyclerView.setAdapter(cartRecyclerViewAdapter);
+
     }
 
     private List<ProductModel> generateProductsListFromSharedPreferance() {
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
-        Set<String> productsIdSet = new HashSet<>(sharedPreferences.getStringSet(SharedPreferencesConstants.CART_KEY, new HashSet<String>()));
+        Set<String> productsIdSet = new TreeSet<>(sharedPreferences.getStringSet(SharedPreferencesConstants.CART_KEY, new TreeSet<>()));
         List<ProductModel> products = new ArrayList<>();
 
         for (String id : productsIdSet) {

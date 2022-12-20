@@ -26,6 +26,7 @@ import com.google.android.material.textview.MaterialTextView;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -120,10 +121,7 @@ public class ProductFragment extends Fragment {
         });
 
         // add product to cart
-        addProductToCartButton.setOnClickListener(v -> {
-            addProductToCart(productID);
-            Toast.makeText(getContext(), "Dodano " + productModel.getName() + " do koszyka", Toast.LENGTH_SHORT).show();
-        });
+        addProductToCartButton.setOnClickListener(v -> addProductToCart(productID, productModel.getName()));
     }
 
     private ProductModel getProduct(int id) {
@@ -132,15 +130,21 @@ public class ProductFragment extends Fragment {
         return databaseHelper.getProductByID(id);
     }
 
-    private void addProductToCart(int id) {
-        Set<String> productsIdSet = new HashSet<>(sharedPreferences.getStringSet(SharedPreferencesConstants.CART_KEY, new HashSet<String>()));
-        Log.d("CART", "set: " + productsIdSet.toString());
+    private void addProductToCart(int id, String productName) {
+        Set<String> productsIdSet = new TreeSet<>(sharedPreferences.getStringSet(SharedPreferencesConstants.CART_KEY, new TreeSet<>()));
+
+        if(productsIdSet.contains(String.valueOf(id))) {
+            Toast.makeText(getContext(), "produkt jest juz w koszyku", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         productsIdSet.add(String.valueOf(id));
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putStringSet(SharedPreferencesConstants.CART_KEY, productsIdSet);
         editor.apply();
-        Log.d("CART", "set2: " + productsIdSet.toString());
+
+        Toast.makeText(getContext(), "Dodano " + productName + " do koszyka", Toast.LENGTH_SHORT).show();
     }
 }
