@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.projekt_zaliczeniowy.models.OrderModel;
 import com.example.projekt_zaliczeniowy.models.ProductModel;
 import com.example.projekt_zaliczeniowy.models.UserModel;
 
@@ -26,12 +27,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USERS_TABLE);
         db.execSQL(CREATE_PRODUCTS_TABLE);
+        db.execSQL(CREATE_ORDERS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL(DELETE_TABLE + Users.TABLE_NAME);
         db.execSQL(DELETE_TABLE + Products.TABLE_NAME);
+        db.execSQL(DELETE_TABLE + Orders.TABLE_NAME);
     }
 
 //    users table
@@ -210,5 +213,75 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return products;
+    }
+
+    // orders table
+    public boolean addOrder(OrderModel orderModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(Orders.PRODUCTS_LIST_COLUMN, orderModel.getProductsIDListString());
+        cv.put(Orders.DATE_COLUMN, orderModel.getUserID());
+        cv.put(Orders.USER_ID_COLUMN, orderModel.getDateUnix());
+
+        long insert = db.insert(Orders.TABLE_NAME, null, cv);
+
+        db.close();
+
+        if(insert == -1) return false;
+
+        return true;
+    }
+
+    public List<OrderModel> getAllOrders() {
+        List<OrderModel> orders = new ArrayList<>();
+
+        String query = "SELECT * FROM " + Orders.TABLE_NAME;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                orders.add(new OrderModel(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getInt(2),
+                        cursor.getInt(3)
+                ));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return orders;
+    }
+
+    public List<OrderModel> getUserOrders(int userID) {
+        List<OrderModel> orders = new ArrayList<>();
+
+        String query = "SELECT * FROM " + Orders.TABLE_NAME + " WHERE " + Orders.USER_ID_COLUMN + " = " + userID;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                orders.add(new OrderModel(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getInt(2),
+                        cursor.getInt(3)
+                ));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return orders;
     }
 }

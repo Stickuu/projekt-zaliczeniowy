@@ -12,11 +12,16 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projekt_zaliczeniowy.MainActivity;
 import com.example.projekt_zaliczeniowy.R;
 import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
+import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
+import com.example.projekt_zaliczeniowy.models.OrderModel;
 import com.example.projekt_zaliczeniowy.models.ProductModel;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.time.Instant;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -37,6 +42,41 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         this.context = context;
 
         totalPrice.setText(String.valueOf(calcualteTotalPrice()) + " $");
+    }
+
+    // return ordered products and clear cart
+    public OrderModel returnOrder() {
+        String productsListString = returnProductsIdAsString();
+        int userID = ((MainActivity) context).getCurrentUserIdFromSession();
+        int date = (int) Instant.now().getEpochSecond();
+
+        // delete products from shared preferences
+        for(int i = 0; i < products.size(); i++) {
+            deleteProductFromSharedPreferencesCart(products.get(i).getId());
+        }
+
+        // clear products list
+        products.clear();
+
+        totalPrice.setText(String.valueOf(calcualteTotalPrice()) + " $");
+
+        notifyDataSetChanged();
+
+        return new OrderModel(
+                productsListString,
+                userID,
+                date
+        );
+    }
+
+    private String returnProductsIdAsString() {
+        String result = "";
+
+        for (ProductModel product : products) {
+            result += product.getId() + ",";
+        }
+
+        return result;
     }
 
     @NonNull

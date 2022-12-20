@@ -31,10 +31,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     BottomNavigationView bottomNavigationView;
     SharedPreferences sharedPreferences;
 
+    DatabaseHelper databaseHelper;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        databaseHelper = new DatabaseHelper(this);
 
         // hide top bar
         getSupportActionBar().hide();
@@ -80,15 +84,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public UserModel getCurrentUser(int id) {
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
         UserModel currentUser = databaseHelper.getUserByID(id);
 
         return currentUser;
     }
 
     private void insertProducts() {
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-
         List<ProductModel> products = databaseHelper.getAllProducts();
 
         if(products.size() == 0) {

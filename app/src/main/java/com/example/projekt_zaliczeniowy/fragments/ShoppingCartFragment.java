@@ -9,18 +9,25 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.projekt_zaliczeniowy.MainActivity;
 import com.example.projekt_zaliczeniowy.R;
 import com.example.projekt_zaliczeniowy.adapters.CartRecyclerViewAdapter;
 import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
 import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
+import com.example.projekt_zaliczeniowy.models.OrderModel;
 import com.example.projekt_zaliczeniowy.models.ProductModel;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +43,7 @@ public class ShoppingCartFragment extends Fragment {
     RecyclerView cartRecyclerView;
     CartRecyclerViewAdapter cartRecyclerViewAdapter;
     SharedPreferences sharedPreferences;
+    MaterialButton orderButton;
 
     MaterialTextView totalPrice;
 
@@ -95,6 +103,28 @@ public class ShoppingCartFragment extends Fragment {
         cartRecyclerView = view.findViewById(R.id.cartRecyclerView);
         cartRecyclerViewAdapter = new CartRecyclerViewAdapter(generateProductsListFromSharedPreferance(), totalPrice, getActivity());
         cartRecyclerView.setAdapter(cartRecyclerViewAdapter);
+
+        orderButton = view.findViewById(R.id.makeOrderButton);
+        orderButton.setOnClickListener(v -> {
+
+            if(cartRecyclerViewAdapter.getItemCount() == 0) {
+                Toast.makeText(getContext(), "Najpierw dodaj cos do koszyka", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(((MainActivity) getActivity()).getCurrentUserIdFromSession() == -1) {
+                Toast.makeText(getContext(), "Zeby zlozyc zamowienie musisz byc zalogowany", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            OrderModel orderModel = cartRecyclerViewAdapter.returnOrder();
+
+            // add order to database
+            DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+            databaseHelper.addOrder(orderModel);
+
+            Toast.makeText(getContext(), "Zamowienie zlozone pomyslnie", Toast.LENGTH_SHORT).show();
+        });
 
     }
 
