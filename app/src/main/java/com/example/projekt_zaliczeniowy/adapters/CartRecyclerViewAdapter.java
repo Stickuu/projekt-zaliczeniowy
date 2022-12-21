@@ -76,7 +76,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
             result += product.getName() + "\n";
         }
 
-        result += "\nTotal price: " + String.valueOf(calcualteTotalPrice());
+        result += "\nTotal price: " + String.valueOf(calcualteTotalPrice()) + " $";
 
         return result;
     }

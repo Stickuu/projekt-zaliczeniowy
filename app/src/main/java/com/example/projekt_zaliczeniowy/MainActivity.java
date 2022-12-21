@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.projekt_zaliczeniowy.Notifcations.Notifications;
 import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
 import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
 import com.example.projekt_zaliczeniowy.fragments.AccountFragment;
@@ -51,6 +53,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         sharedPreferences = getSharedPreferences(SharedPreferencesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
 
         int id = sharedPreferences.getInt(SharedPreferencesConstants.USER_ID_KEY, -1);
+
+        Notifications notifications = new Notifications(
+                this,
+                this
+        );
+
+        notifications.checkPermission(Manifest.permission.SEND_SMS, notifications.PERMISSION_REQUEST_SEND_SMS);
 
         Log.d("USER", "currentUser: " + String.valueOf(id));
         insertProducts();

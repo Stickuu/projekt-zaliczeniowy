@@ -223,6 +223,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(Orders.PRODUCTS_LIST_COLUMN, orderModel.getProductsIDListString());
         cv.put(Orders.DATE_COLUMN, orderModel.getDateUnix());
         cv.put(Orders.USER_ID_COLUMN, orderModel.getUserID());
+        cv.put(Orders.ORDER_UNIQUE_NUMBER_COLUMN, orderModel.getOrderUniqueNumber());
 
         long insert = db.insert(Orders.TABLE_NAME, null, cv);
 
@@ -248,7 +249,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getInt(2),
-                        cursor.getInt(3)
+                        cursor.getInt(3),
+                        cursor.getInt(4)
                 ));
             } while (cursor.moveToNext());
         }
@@ -274,7 +276,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getInt(2),
-                        cursor.getInt(3)
+                        cursor.getInt(3),
+                        cursor.getInt(4)
                 ));
             } while (cursor.moveToNext());
         }

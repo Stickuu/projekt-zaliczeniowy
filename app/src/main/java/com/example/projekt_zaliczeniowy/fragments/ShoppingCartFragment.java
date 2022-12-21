@@ -17,12 +17,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.projekt_zaliczeniowy.MainActivity;
+import com.example.projekt_zaliczeniowy.Notifcations.Notifications;
 import com.example.projekt_zaliczeniowy.R;
 import com.example.projekt_zaliczeniowy.adapters.CartRecyclerViewAdapter;
 import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
 import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
 import com.example.projekt_zaliczeniowy.models.OrderModel;
 import com.example.projekt_zaliczeniowy.models.ProductModel;
+import com.example.projekt_zaliczeniowy.models.UserModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -128,9 +130,31 @@ public class ShoppingCartFragment extends Fragment {
             databaseHelper.addOrder(orderModel);
 
             Toast.makeText(getContext(), "Zamowienie zlozone pomyslnie", Toast.LENGTH_SHORT).show();
+
+            Notifications notifications = new Notifications(
+                    getContext(),
+                    getActivity()
+            );
+
+            // get user phone number
+            UserModel currentUser = ((MainActivity) getActivity()).getCurrentUser(
+                    ((MainActivity) getActivity()).getCurrentUserIdFromSession()
+            );
+
+            // sending sms
+            notifications.sendSmsWithSmsManager(
+                    currentUser.getPhoneNumber(),
+                    "Your order number: " + String.valueOf(orderModel.getOrderUniqueNumber()) + "\nThank you for your order"
+            );
         });
 
         shareButton.setOnClickListener(v -> {
+
+            if(cartRecyclerViewAdapter.getItemCount() == 0) {
+                Toast.makeText(getContext(), "Najpierw dodaj cos do koszyka", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             String message = cartRecyclerViewAdapter.generateShareCartMessage();
 
             Log.d("SHARE", "share message: " + message);
