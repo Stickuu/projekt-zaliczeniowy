@@ -104,7 +104,7 @@ public class LoginFragment extends Fragment {
                     editor.putInt(SharedPreferencesConstants.USER_ID_KEY, userModel.getId());
                     editor.apply();
 
-                    Toast.makeText(getContext(), "Zalogowano", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getResources().getString(R.string.loginToast), Toast.LENGTH_SHORT).show();
 
                     ((MainActivity) getActivity()).getCorrectAccountFragment();
 
@@ -112,11 +112,11 @@ public class LoginFragment extends Fragment {
                     return;
                 }
 
-                Toast.makeText(getContext(), "blad", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.errorToast), Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            Toast.makeText(getContext(), "Wypelnij wszystkie pola", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.fillAllFieldsToast), Toast.LENGTH_SHORT).show();
         });
     }
 }

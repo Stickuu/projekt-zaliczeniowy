@@ -112,15 +112,15 @@ public class SignupFragment extends Fragment {
 
 
                 if(result) {
-                    Toast.makeText(getContext(), "Zarejestrowano pomyslnie mozesz sie teraz zalogowac", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getResources().getString(R.string.registerText), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Toast.makeText(getContext(), "blad", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.errorToast), Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            Toast.makeText(getContext(), "Wszystkie pola sa wymagane", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.fillAllFieldsToast), Toast.LENGTH_SHORT).show();
         });
     }
 }

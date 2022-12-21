@@ -22,6 +22,9 @@ import com.example.projekt_zaliczeniowy.R;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
+import java.util.HashMap;
+import java.util.Locale;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AccountSettingsFragment#newInstance} factory method to
@@ -31,6 +34,10 @@ public class AccountSettingsFragment extends Fragment implements AdapterView.OnI
 
     SwitchMaterial darkModeSwitch;
     Spinner languageSpinner;
+    HashMap<String, String> languageCodes = new HashMap<String, String>() {{
+        put("Polski", "pl");
+        put("English", "en");
+    }};
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

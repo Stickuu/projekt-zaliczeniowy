@@ -24,7 +24,7 @@
             android:id="@+id/totlPriceText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Total price"
+            android:text="@string/totalPrice"
             android:textStyle="bold"
             android:textSize="18dp"/>
 
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/totalPriceCart"
-            android:text="Zamow"
+            android:text="@string/orderText"
             android:layout_marginTop="10dp"/>
 
         <com.google.android.material.button.MaterialButton
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/makeOrderButton"
-            android:text="Udostepnij"
+            android:text="@string/shareText"
             android:layout_marginBottom="20dp"/>
 
 

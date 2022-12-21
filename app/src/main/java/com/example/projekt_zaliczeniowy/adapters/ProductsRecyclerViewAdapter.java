@@ -45,7 +45,6 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
         holder.productPrice.setText(String.valueOf(products.get(position).getPrice()) + " $");
 
         holder.itemView.setOnClickListener(v -> {
-            Log.d("CLICK", products.get(position).toString());
 
             Bundle bundle = new Bundle();
             bundle.putInt("productID", products.get(position).getId());

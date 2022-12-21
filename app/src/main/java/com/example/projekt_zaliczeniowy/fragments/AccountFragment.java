@@ -93,8 +93,8 @@ public class AccountFragment extends Fragment {
         FragmentManager fragmentManager = getChildFragmentManager();
         fragmentAdapter = new FragmentAdapter(fragmentManager, getLifecycle(), Arrays.asList(new LoginFragment(), new SignupFragment()));
         viewPager2.setAdapter(fragmentAdapter);
-        tabLayout.addTab(tabLayout.newTab().setText("Login"));
-        tabLayout.addTab(tabLayout.newTab().setText("Register"));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.loginText)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.registerText)));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

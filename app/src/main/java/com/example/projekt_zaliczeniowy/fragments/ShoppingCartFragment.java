@@ -114,12 +114,12 @@ public class ShoppingCartFragment extends Fragment {
         orderButton.setOnClickListener(v -> {
 
             if(cartRecyclerViewAdapter.getItemCount() == 0) {
-                Toast.makeText(getContext(), "Najpierw dodaj cos do koszyka", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.addToCartFirst), Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if(((MainActivity) getActivity()).getCurrentUserIdFromSession() == -1) {
-                Toast.makeText(getContext(), "Zeby zlozyc zamowienie musisz byc zalogowany", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.mustBeLoggedIn), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -129,7 +129,7 @@ public class ShoppingCartFragment extends Fragment {
             DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
             databaseHelper.addOrder(orderModel);
 
-            Toast.makeText(getContext(), "Zamowienie zlozone pomyslnie", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.orderSucces), Toast.LENGTH_SHORT).show();
 
             Notifications notifications = new Notifications(
                     getContext(),
@@ -151,7 +151,7 @@ public class ShoppingCartFragment extends Fragment {
         shareButton.setOnClickListener(v -> {
 
             if(cartRecyclerViewAdapter.getItemCount() == 0) {
-                Toast.makeText(getContext(), "Najpierw dodaj cos do koszyka", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.addToCartFirst), Toast.LENGTH_SHORT).show();
                 return;
             }
 

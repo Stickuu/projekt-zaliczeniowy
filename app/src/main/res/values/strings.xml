@@ -1,9 +1,37 @@
 <resources>
-    <string name="app_name">projekt-zaliczeniowy</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name" translatable="false">projekt-zaliczeniowy</string>
     <string-array name="languages">
         <item>Polski</item>
         <item>English</item>
     </string-array>
+    <string name="bottomNavigationHome">Home</string>
+    <string name="bottomNavigationCart">Cart</string>
+    <string name="bottomNavigationAccount">Account</string>
+    <string name="priceText">Price:</string>
+    <string name="totalPrice">Total price:</string>
+    <string name="orderText">Order</string>
+    <string name="shareText">Share</string>
+    <string name="loginText">Login</string>
+    <string name="registerText">Register</string>
+    <string name="passwordText">password</string>
+    <string name="firstNameText">first name</string>
+    <string name="lastNameText">last name</string>
+    <string name="phoneNumberText">phone number</string>
+    <string name="settingsText">Settings</string>
+    <string name="yourOrdersText">Your Orders</string>
+    <string name="logoutText">Logout</string>
+    <string name="languageText">Language</string>
+    <string name="hello_blank_fragment" translatable="false">sss</string>
+    <string name="addToCartText">Add to cart</string>
+    <string name="logoutToast">Logged out successfully</string>
+    <string name="loginToast">Logged in successfully</string>
+    <string name="errorToast">error</string>
+    <string name="fillAllFieldsToast">You must fill all fields</string>
+    <string name="productIsInCartToast">Product is already in cart</string>
+    <string name="addedText">Added</string>
+    <string name="toCartText">to cart</string>
+    <string name="addToCartFirst">First add something to cart</string>
+    <string name="signupSuccessfully">Registerd successfully you can log in now</string>
+    <string name="orderSucces">Order made successfully</string>
+    <string name="mustBeLoggedIn">You must be logged in to make a order</string>
 </resources>

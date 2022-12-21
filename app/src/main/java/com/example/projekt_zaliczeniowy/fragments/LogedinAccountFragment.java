@@ -106,8 +106,8 @@ public class LogedinAccountFragment extends Fragment {
 
         fragmentAdapter = new FragmentAdapter(fragmentManager, getLifecycle(), Arrays.asList(new AccountSettingsFragment(), new AccountOrdersFragment()));
         viewPager2.setAdapter(fragmentAdapter);
-        tabLayout.addTab(tabLayout.newTab().setText("Settings"));
-        tabLayout.addTab(tabLayout.newTab().setText("Your Orders"));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.settingsText)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.yourOrdersText)));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -151,7 +151,7 @@ public class LogedinAccountFragment extends Fragment {
 
             ((MainActivity) getActivity()).getCorrectAccountFragment();
 
-            Toast.makeText(getContext(), "Wylogowano pomyslnie", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.logoutToast), Toast.LENGTH_SHORT).show();
         });
     }
 }

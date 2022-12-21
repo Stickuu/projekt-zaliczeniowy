@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bottomNavigationHome">Strona Główna</string>
+    <string name="bottomNavigationCart">Koszyk</string>
+    <string name="bottomNavigationAccount">Konto</string>
+    <string name="priceText">"Cena: "</string>
+    <string name="totalPrice">"Cena całkowita: "</string>
+    <string name="orderText">Zamów</string>
+    <string name="shareText">Udostępnij</string>
+    <string name="loginText">Zaloguj się</string>
+    <string name="registerText">Zarejestruj się</string>
+    <string name="passwordText">hasło</string>
+    <string name="firstNameText">imię</string>
+    <string name="lastNameText">nazwisko</string>
+    <string name="phoneNumberText">numer telefonu</string>
+    <string name="settingsText">Ustawienia</string>
+    <string name="yourOrdersText">Twoje zamówienia</string>
+    <string name="logoutText">Wyloguj się</string>
+    <string name="languageText">Język</string>
+    <string name="addToCartText">Dodaj do koszyka</string>
+    <string name="logoutToast">Wylogowano pomyślnie</string>
+    <string name="loginToast">Zalogowano pomyślnie</string>
+    <string name="errorToast">błąd</string>
+    <string name="fillAllFieldsToast">Wypełnij wszystkie pola</string>
+    <string name="productIsInCartToast">Produkt jest już w koszyku</string>
+    <string name="addedText">Dodano</string>
+    <string name="toCartText">do koszyka</string>
+    <string name="addToCartFirst">Najpierw dodaj coś do koszyka</string>
+    <string name="signupSuccessfully">Zalogowano pomyślnie możesz sie teraz zalogować</string>
+    <string name="orderSucces">Zamówienie złożone pomyślnie</string>
+    <string name="mustBeLoggedIn">Zeby złożyć zamówienie musisz być zalogowany</string>
+</resources>

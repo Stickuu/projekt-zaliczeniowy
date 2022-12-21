@@ -12,7 +12,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="first name"
+        android:hint="@string/firstNameText"
         android:inputType="text" />
 
     <com.google.android.material.textfield.TextInputEditText
@@ -20,7 +20,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="last name"
+        android:hint="@string/lastNameText"
         android:layout_below="@id/signupFirstName"
         android:inputType="text" />
 
@@ -38,7 +38,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="phone number"
+        android:hint="@string/phoneNumberText"
         android:layout_below="@id/signupEmail"
         android:inputType="phone" />
 
@@ -47,16 +47,9 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="password"
+        android:hint="@string/passwordText"
         android:layout_below="@id/signupPhone"
         android:inputType="textPassword" />
-
-<!--    <com.google.android.material.checkbox.MaterialCheckBox-->
-<!--        android:id="@+id/signupCheckbox"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Company ?"-->
-<!--        android:layout_below="@id/signupPassword"/>-->
 
     <com.google.android.material.button.MaterialButton
         android:layout_marginTop="10dp"
@@ -64,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/signupPassword"
-        android:text="Signup" />
+        android:text="@string/registerText" />
 
 
 </RelativeLayout>

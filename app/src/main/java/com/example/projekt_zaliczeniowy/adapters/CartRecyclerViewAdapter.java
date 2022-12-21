@@ -137,13 +137,11 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
     }
 
     private void deleteProductFromSharedPreferencesCart(int id) {
-        Log.d("DELETEBUTTON", "id: " + String.valueOf(id));
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPreferencesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
 
         Set<String> productsIdSet = new TreeSet<>(sharedPreferences.getStringSet(SharedPreferencesConstants.CART_KEY, new TreeSet<>()));
-        Log.d("DELETEBUTTON", "productsSet: " + productsIdSet.toString());
         productsIdSet.remove(String.valueOf(id));
-        Log.d("DELETEBUTTON", "productSet2: " + productsIdSet.toString());
+
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putStringSet(SharedPreferencesConstants.CART_KEY, productsIdSet);

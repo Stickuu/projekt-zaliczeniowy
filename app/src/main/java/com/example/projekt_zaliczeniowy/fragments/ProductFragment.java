@@ -142,7 +142,7 @@ public class ProductFragment extends Fragment {
         Set<String> productsIdSet = new TreeSet<>(sharedPreferences.getStringSet(SharedPreferencesConstants.CART_KEY, new TreeSet<>()));
 
         if(productsIdSet.contains(String.valueOf(id))) {
-            Toast.makeText(getContext(), "produkt jest juz w koszyku", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.productIsInCartToast), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -153,7 +153,7 @@ public class ProductFragment extends Fragment {
         editor.putStringSet(SharedPreferencesConstants.CART_KEY, productsIdSet);
         editor.apply();
 
-        Toast.makeText(getContext(), "Dodano " + productName + " do koszyka", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getResources().getString(R.string.addedText) + " " + productName + " " + getResources().getString(R.string.toCartText), Toast.LENGTH_SHORT).show();
     }
 
 

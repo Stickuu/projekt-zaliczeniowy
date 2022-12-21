@@ -20,7 +20,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="password"
+        android:hint="@string/passwordText"
         android:layout_below="@id/loginEmail"
         android:inputType="textPassword" />
 
@@ -30,6 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/loginPassword"
-        android:text="Login" />
+        android:text="@string/loginText" />
 
 </RelativeLayout>
