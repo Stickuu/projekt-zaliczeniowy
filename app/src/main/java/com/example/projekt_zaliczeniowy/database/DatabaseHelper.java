@@ -221,8 +221,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         cv.put(Orders.PRODUCTS_LIST_COLUMN, orderModel.getProductsIDListString());
-        cv.put(Orders.DATE_COLUMN, orderModel.getUserID());
-        cv.put(Orders.USER_ID_COLUMN, orderModel.getDateUnix());
+        cv.put(Orders.DATE_COLUMN, orderModel.getDateUnix());
+        cv.put(Orders.USER_ID_COLUMN, orderModel.getUserID());
 
         long insert = db.insert(Orders.TABLE_NAME, null, cv);
 

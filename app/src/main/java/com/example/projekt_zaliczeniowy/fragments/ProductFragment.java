@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.projekt_zaliczeniowy.MainActivity;
 import com.example.projekt_zaliczeniowy.R;
 import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
 import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
@@ -41,6 +42,7 @@ public class ProductFragment extends Fragment {
     ImageButton backArrowButton;
     MaterialButton addProductToCartButton;
     SharedPreferences sharedPreferences;
+    MainActivity mainActivity;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -101,9 +103,15 @@ public class ProductFragment extends Fragment {
         backArrowButton = view.findViewById(R.id.backButton);
         addProductToCartButton = view.findViewById(R.id.addProductToCartButton);
         sharedPreferences = getActivity().getSharedPreferences(SharedPreferencesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
+        mainActivity = (MainActivity)getActivity();
 
         // get product id
         int productID = getArguments().getInt("productID");
+
+        // hide bottom navigation bar
+        mainActivity.bottomNavigationView.setVisibility(View.GONE);
+
+
 
         ProductModel productModel = getProduct(productID);
 
@@ -146,5 +154,14 @@ public class ProductFragment extends Fragment {
         editor.apply();
 
         Toast.makeText(getContext(), "Dodano " + productName + " do koszyka", Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        // show bottom navigation bar
+        mainActivity.bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }

@@ -69,6 +69,18 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         );
     }
 
+    public String generateShareCartMessage() {
+        String result = "";
+
+        for (ProductModel product : products) {
+            result += product.getName() + "\n";
+        }
+
+        result += "\nTotal price: " + String.valueOf(calcualteTotalPrice());
+
+        return result;
+    }
+
     private String returnProductsIdAsString() {
         String result = "";
 

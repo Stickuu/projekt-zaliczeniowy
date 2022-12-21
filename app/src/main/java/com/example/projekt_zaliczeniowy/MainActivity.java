@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     ShoppingCartFragment shoppingCartFragment = new ShoppingCartFragment();
     AccountFragment accountFragment = new AccountFragment();
     LogedinAccountFragment logedinAccountFragment = new LogedinAccountFragment();
-    BottomNavigationView bottomNavigationView;
+    public BottomNavigationView bottomNavigationView;
     SharedPreferences sharedPreferences;
 
     DatabaseHelper databaseHelper;

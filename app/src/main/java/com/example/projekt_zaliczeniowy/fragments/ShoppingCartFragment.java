@@ -1,6 +1,7 @@
 package com.example.projekt_zaliczeniowy.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -44,6 +45,7 @@ public class ShoppingCartFragment extends Fragment {
     CartRecyclerViewAdapter cartRecyclerViewAdapter;
     SharedPreferences sharedPreferences;
     MaterialButton orderButton;
+    MaterialButton shareButton;
 
     MaterialTextView totalPrice;
 
@@ -105,6 +107,8 @@ public class ShoppingCartFragment extends Fragment {
         cartRecyclerView.setAdapter(cartRecyclerViewAdapter);
 
         orderButton = view.findViewById(R.id.makeOrderButton);
+        shareButton = view.findViewById(R.id.shareButton);
+
         orderButton.setOnClickListener(v -> {
 
             if(cartRecyclerViewAdapter.getItemCount() == 0) {
@@ -124,6 +128,18 @@ public class ShoppingCartFragment extends Fragment {
             databaseHelper.addOrder(orderModel);
 
             Toast.makeText(getContext(), "Zamowienie zlozone pomyslnie", Toast.LENGTH_SHORT).show();
+        });
+
+        shareButton.setOnClickListener(v -> {
+            String message = cartRecyclerViewAdapter.generateShareCartMessage();
+
+            Log.d("SHARE", "share message: " + message);
+
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, message);
+            shareIntent.setType("text/*");
+            startActivity(Intent.createChooser(shareIntent, "send"));
         });
 
     }
