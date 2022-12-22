@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -224,6 +225,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(Orders.DATE_COLUMN, orderModel.getDateUnix());
         cv.put(Orders.USER_ID_COLUMN, orderModel.getUserID());
         cv.put(Orders.ORDER_UNIQUE_NUMBER_COLUMN, orderModel.getOrderUniqueNumber());
+        cv.put(Orders.ORDER_TOTAL_PRICE_COLUMN, orderModel.getTotalPrice());
 
         long insert = db.insert(Orders.TABLE_NAME, null, cv);
 
@@ -250,7 +252,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getString(1),
                         cursor.getInt(2),
                         cursor.getInt(3),
-                        cursor.getInt(4)
+                        cursor.getInt(4),
+                        cursor.getInt(5)
                 ));
             } while (cursor.moveToNext());
         }
@@ -269,6 +272,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
+        Log.d("CUROSR", cursor.toString());
 
         if (cursor.moveToFirst()) {
             do {
@@ -277,7 +281,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getString(1),
                         cursor.getInt(2),
                         cursor.getInt(3),
-                        cursor.getInt(4)
+                        cursor.getInt(4),
+                        cursor.getInt(5)
                 ));
             } while (cursor.moveToNext());
         }

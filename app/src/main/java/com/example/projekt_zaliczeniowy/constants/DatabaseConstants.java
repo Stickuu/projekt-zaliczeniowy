@@ -29,6 +29,7 @@ public final class DatabaseConstants {
         public static final String DATE_COLUMN = "date";
         public static final String USER_ID_COLUMN = "userID";
         public static final String ORDER_UNIQUE_NUMBER_COLUMN = "orderUniqueNumber";
+        public static final String ORDER_TOTAL_PRICE_COLUMN = "totalPrice";
     }
 
     public static final String CREATE_USERS_TABLE = "CREATE TABLE " + Users.TABLE_NAME +
@@ -51,7 +52,8 @@ public final class DatabaseConstants {
             Orders.PRODUCTS_LIST_COLUMN + " TEXT, " +
             Orders.DATE_COLUMN + " INTEGER, " +
             Orders.USER_ID_COLUMN + " INTEGER, " +
-            Orders.ORDER_UNIQUE_NUMBER_COLUMN + " INTEGER)";
+            Orders.ORDER_UNIQUE_NUMBER_COLUMN + " INTEGER, " +
+            Orders.ORDER_TOTAL_PRICE_COLUMN + " INTEGER)";
 
     public static final String DELETE_TABLE = "DELETE TABLE IF EXISTS ";
 }

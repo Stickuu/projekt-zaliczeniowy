@@ -15,20 +15,23 @@ public class OrderModel {
     private int userID;
     private int dateUnix;
     private int orderUniqueNumber;
+    private int totalPrice;
 
-    public OrderModel(int id, String productsList, int userID, int date, int orderUniqueNumber) {
+    public OrderModel(int id, String productsList, int date, int userID, int orderUniqueNumber, int totalPrice) {
         this.id = id;
         this.productsIDListString = productsList;
         this.userID = userID;
         this.dateUnix = date;
         this.orderUniqueNumber = orderUniqueNumber;
+        this.totalPrice = totalPrice;
     }
 
-    public OrderModel(String productsList, int userID, int date) {
+    public OrderModel(String productsList, int userID, int date, int totalPrice) {
         this.productsIDListString = productsList;
         this.userID = userID;
         this.dateUnix = date;
         this.orderUniqueNumber = generateUniqueOrderNumber();
+        this.totalPrice = totalPrice;
     }
 
     public Instant getConvertedUnixDate() {
@@ -46,6 +49,14 @@ public class OrderModel {
         int uniqueNumber = 10000000 + random.nextInt(90000000);
 
         return uniqueNumber;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public int getOrderUniqueNumber() {

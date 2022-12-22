@@ -2,8 +2,6 @@ package com.example.projekt_zaliczeniowy.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.projekt_zaliczeniowy.MainActivity;
 import com.example.projekt_zaliczeniowy.R;
 import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
-import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
 import com.example.projekt_zaliczeniowy.models.OrderModel;
 import com.example.projekt_zaliczeniowy.models.ProductModel;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -29,7 +25,7 @@ import java.util.TreeSet;
 public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerViewAdapter.ViewHolder> {
 
     List<ProductModel> products;
-    MaterialTextView totalPrice;
+    MaterialTextView totalPriceText;
     Context context;
 
     public CartRecyclerViewAdapter(List<ProductModel> products) {
@@ -38,10 +34,10 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
 
     public CartRecyclerViewAdapter(List<ProductModel> products, MaterialTextView price, Context context) {
         this.products = products;
-        this.totalPrice = price;
+        this.totalPriceText = price;
         this.context = context;
 
-        totalPrice.setText(String.valueOf(calcualteTotalPrice()) + " $");
+        totalPriceText.setText(String.valueOf(calcualteTotalPrice()) + " $");
     }
 
     // return ordered products and clear cart
@@ -49,6 +45,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         String productsListString = returnProductsIdAsString();
         int userID = ((MainActivity) context).getCurrentUserIdFromSession();
         int date = (int) Instant.now().getEpochSecond();
+        int totalPrice = calcualteTotalPrice();
 
         // delete products from shared preferences
         for(int i = 0; i < products.size(); i++) {
@@ -58,14 +55,15 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         // clear products list
         products.clear();
 
-        totalPrice.setText(String.valueOf(calcualteTotalPrice()) + " $");
+        totalPriceText.setText(String.valueOf(calcualteTotalPrice()) + " $");
 
         notifyDataSetChanged();
 
         return new OrderModel(
                 productsListString,
                 userID,
-                date
+                date,
+                totalPrice
         );
     }
 
@@ -117,7 +115,7 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
 
             // update recycler view
             notifyDataSetChanged();
-            totalPrice.setText(String.valueOf(calcualteTotalPrice()) + " $");
+            totalPriceText.setText(String.valueOf(calcualteTotalPrice()) + " $");
         });
     }
 

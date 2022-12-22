@@ -2,13 +2,22 @@ package com.example.projekt_zaliczeniowy.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.projekt_zaliczeniowy.MainActivity;
 import com.example.projekt_zaliczeniowy.R;
+import com.example.projekt_zaliczeniowy.adapters.OrdersRecyclerViewAdapter;
+import com.example.projekt_zaliczeniowy.database.DatabaseHelper;
+import com.example.projekt_zaliczeniowy.models.OrderModel;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +25,9 @@ import com.example.projekt_zaliczeniowy.R;
  * create an instance of this fragment.
  */
 public class AccountOrdersFragment extends Fragment {
+
+    RecyclerView ordersRecyclerView;
+    OrdersRecyclerViewAdapter ordersRecyclerViewAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +74,22 @@ public class AccountOrdersFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account_orders, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ordersRecyclerView = view.findViewById(R.id.myOrdersRecyclerView);
+
+        ordersRecyclerViewAdapter = new OrdersRecyclerViewAdapter(getUserOrders());
+        ordersRecyclerView.setAdapter(ordersRecyclerViewAdapter);
+    }
+
+    private List<OrderModel> getUserOrders() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
+        int userID = ((MainActivity) getActivity()).getCurrentUserIdFromSession();
+
+        return databaseHelper.getUserOrders(userID);
     }
 }

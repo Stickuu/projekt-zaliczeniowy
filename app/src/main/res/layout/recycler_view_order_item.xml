@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="18dp"
+    android:paddingVertical="10dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/orderNumberText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order number: "
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/orderDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date: "
+        android:layout_below="@id/orderNumberText"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/orderNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12345678"
+        android:layout_toRightOf="@id/orderNumberText"
+        android:textSize="18sp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/orderDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01.01.2022"
+        android:layout_toRightOf="@id/orderDateText"
+        android:layout_below="@id/orderNumber"
+        android:textSize="18sp" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/orderTotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="500 $"
+        android:layout_alignParentRight="true"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
