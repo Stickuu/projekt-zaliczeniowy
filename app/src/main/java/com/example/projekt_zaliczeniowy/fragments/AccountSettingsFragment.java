@@ -1,11 +1,12 @@
 package com.example.projekt_zaliczeniowy.fragments;
 
-import android.app.UiModeManager;
-import android.content.res.Configuration;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -16,14 +17,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
-import android.widget.Switch;
 
+import com.example.projekt_zaliczeniowy.MainActivity;
 import com.example.projekt_zaliczeniowy.R;
-import com.google.android.material.materialswitch.MaterialSwitch;
+import com.example.projekt_zaliczeniowy.constants.SharedPreferencesConstants;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.HashMap;
-import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,9 +34,10 @@ public class AccountSettingsFragment extends Fragment implements AdapterView.OnI
 
     SwitchMaterial darkModeSwitch;
     Spinner languageSpinner;
+    SharedPreferences sharedPreferences;
     HashMap<String, String> languageCodes = new HashMap<String, String>() {{
-        put("Polski", "pl");
-        put("English", "en");
+        put("Polski", "PL");
+        put("English", "US");
     }};
 
     // TODO: Rename parameter arguments, choose names that match
@@ -92,6 +93,7 @@ public class AccountSettingsFragment extends Fragment implements AdapterView.OnI
 
         darkModeSwitch = getView().findViewById(R.id.accountSettingsDarkModeSwitch);
         languageSpinner = getView().findViewById(R.id.languageSpinner);
+        sharedPreferences = getActivity().getSharedPreferences(SharedPreferencesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 getActivity(),
@@ -101,19 +103,44 @@ public class AccountSettingsFragment extends Fragment implements AdapterView.OnI
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         languageSpinner.setAdapter(adapter);
+
+        // get and set spinner to actuall language
+        int currentLanguageIndex = (sharedPreferences.getString(SharedPreferencesConstants.LANGUAGE_KEY, "PL").equals("PL")) ? 0 : 1;
+        languageSpinner.setSelection(currentLanguageIndex, false);
+
         languageSpinner.setOnItemSelectedListener(this);
+
+        darkModeSwitch.setChecked(sharedPreferences.getBoolean(SharedPreferencesConstants.DARK_THEME_KEY, false));
 
         darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                Log.d("SWITCH", "isChecked: " + isChecked);
+                MainActivity mainActivity = ((MainActivity) getActivity());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                if (isChecked) {
+                    mainActivity.setDarkTheme();
+                    editor.putBoolean(SharedPreferencesConstants.DARK_THEME_KEY, true);
+                    editor.apply();
+                    return;
+                }
+
+                mainActivity.setLightTheme();
+                editor.putBoolean(SharedPreferencesConstants.DARK_THEME_KEY, false);
+                editor.apply();
             }
         });
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String text = adapterView.getItemAtPosition(i).toString();
+
+        ((MainActivity) getActivity()).setLanguage(languageCodes.get(adapterView.getItemAtPosition(i).toString()));
+
+        // save language to sharedPreferences
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(SharedPreferencesConstants.LANGUAGE_KEY, languageCodes.get(adapterView.getItemAtPosition(i).toString()));
+        editor.apply();
     }
 
     @Override

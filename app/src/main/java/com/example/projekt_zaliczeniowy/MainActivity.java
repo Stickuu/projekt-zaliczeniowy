@@ -2,11 +2,13 @@ package com.example.projekt_zaliczeniowy;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import com.example.projekt_zaliczeniowy.models.UserModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -61,7 +64,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         notifications.checkPermission(Manifest.permission.SEND_SMS, notifications.PERMISSION_REQUEST_SEND_SMS);
 
-        Log.d("USER", "currentUser: " + String.valueOf(id));
+        // set language and theme from shared preferences
+        setLanguage(sharedPreferences.getString(SharedPreferencesConstants.LANGUAGE_KEY, "PL"));
+
+        // set theme
+        if ((sharedPreferences.getBoolean(SharedPreferencesConstants.DARK_THEME_KEY, false))) {
+            setDarkTheme();
+        } else {
+            setLightTheme();
+        }
+
         insertProducts();
     }
 
@@ -96,6 +108,34 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         UserModel currentUser = databaseHelper.getUserByID(id);
 
         return currentUser;
+    }
+
+    public void setLanguage(String language) {
+        String currentLanguage = Locale.getDefault().getLanguage();
+        Locale locale = new Locale(language);
+
+        // avoid changing language to the same language
+        if (locale.getLanguage().equals(currentLanguage)) return;
+
+        Log.d("TEST", "changing language");
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+
+        // recreate view to load correct language strings
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
+        recreate();
+    }
+
+    public void setDarkTheme() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    }
+
+    public void setLightTheme() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 
     private void insertProducts() {
