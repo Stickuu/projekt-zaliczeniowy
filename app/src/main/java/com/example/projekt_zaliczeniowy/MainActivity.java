@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // bottom navigation view setup
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.home);
 
         sharedPreferences = getSharedPreferences(SharedPreferencesConstants.SHARED_PREFS, Context.MODE_PRIVATE);
 
