@@ -34,4 +34,7 @@
     <string name="signupSuccessfully">Registerd successfully you can log in now</string>
     <string name="orderSucces">Order made successfully</string>
     <string name="mustBeLoggedIn">You must be logged in to make a order</string>
+    <string name="orderNumber">Order Number:</string>
+    <string name="date">Date:</string>
+    <string name="darkMode">Dark mode</string>
 </resources>

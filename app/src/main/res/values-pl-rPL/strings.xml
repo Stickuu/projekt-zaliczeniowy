@@ -29,4 +29,7 @@
     <string name="signupSuccessfully">Zarejestrowano pomyślnie możesz sie teraz zalogować</string>
     <string name="orderSucces">Zamówienie złożone pomyślnie</string>
     <string name="mustBeLoggedIn">Zeby złożyć zamówienie musisz być zalogowany</string>
+    <string name="orderNumber">Numer zamówienia:</string>
+    <string name="date">Data:</string>
+    <string name="darkMode">Ciemny motyw</string>
 </resources>

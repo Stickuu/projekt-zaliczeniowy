@@ -36,8 +36,8 @@ public class OrdersRecyclerViewAdapter extends RecyclerView.Adapter<OrdersRecycl
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.orderNumber.setText(String.valueOf(orders.get(position).getOrderUniqueNumber()));
-        holder.orderDate.setText(returnFormattedDate(orders.get(position).getConvertedUnixDate()));
+        holder.orderNumber.setText(" " + String.valueOf(orders.get(position).getOrderUniqueNumber()));
+        holder.orderDate.setText(" " + returnFormattedDate(orders.get(position).getConvertedUnixDate()));
         holder.orderTotalPrice.setText(String.valueOf(orders.get(position).getTotalPrice()) + " $");
     }
 
